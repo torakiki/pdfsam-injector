@@ -4,37 +4,50 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import javax.inject.Provider;
-import javax.inject.Singleton;
 
 import org.junit.Test;
-import org.pdfsam.injector.Injector;
 
 public class SingletonTest {
     @Test
     public void nonSingleton() {
         Injector injector = Injector.start();
+        assertNotEquals(injector.instance(ProtoPlain.class), injector.instance(ProtoPlain.class));
+    }
+
+    @Test
+    public void nonSingletonConfig() {
+        Injector injector = Injector.start(new Config());
         assertNotEquals(injector.instance(Plain.class), injector.instance(Plain.class));
     }
 
     @Test
-    public void singleton() {
+    public void singletonByDefault() {
         Injector injector = Injector.start();
-        assertEquals(injector.instance(SingletonObj.class), injector.instance(SingletonObj.class));
+        assertEquals(injector.instance(Plain.class), injector.instance(Plain.class));
     }
 
     @Test
     public void singletonThroughProvider() {
         Injector injector = Injector.start();
-        Provider<SingletonObj> provider = injector.provider(SingletonObj.class);
+        Provider<Plain> provider = injector.provider(Plain.class);
         assertEquals(provider.get(), provider.get());
+    }
+
+    @Prototype
+    public static class ProtoPlain {
+
     }
 
     public static class Plain {
 
     }
 
-    @Singleton
-    public static class SingletonObj {
 
+    public class Config {
+        @Provides
+        @Prototype
+        Plain plain() {
+            return new Plain();
+        }
     }
 }

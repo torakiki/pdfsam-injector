@@ -14,6 +14,7 @@
 package org.pdfsam.injector;
 
 import static java.util.Collections.singleton;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
@@ -30,17 +31,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Qualifier;
-import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,6 +150,14 @@ public class Injector implements Closeable {
     }
 
     /**
+     * @return an instance of type
+     */
+    @SuppressWarnings("unchecked")
+    public <T> List<T> instancesOfType(Class<T> type) {
+        return (List<T>) listProvider(Key.of(type)).get();
+    }
+
+    /**
      * @return provider of type
      */
     public <T> Provider<T> provider(Class<T> type) {
@@ -170,7 +181,7 @@ public class Injector implements Closeable {
             final Provider<?>[] paramProviders = paramProviders(key, constructor.getParameterTypes(),
                     constructor.getGenericParameterTypes(), constructor.getParameterAnnotations(), chain);
             providers.put(key, singletonProvider(key,
-                    key.type.isAnnotationPresent(Singleton.class) || key.type.isAnnotationPresent(Auto.class), () -> {
+                    !key.type.isAnnotationPresent(Prototype.class) || key.type.isAnnotationPresent(Auto.class), () -> {
                         try {
                             return constructor.newInstance(params(paramProviders));
                         } catch (Exception e) {
@@ -191,9 +202,9 @@ public class Injector implements Closeable {
             throw new InjectionException(
                     String.format("%s has multiple providers, configuration %s", key.toString(), module.getClass()));
         }
-        boolean singleton = m.isAnnotationPresent(Singleton.class) || m.isAnnotationPresent(Auto.class)
-                || m.getReturnType().isAnnotationPresent(Singleton.class)
-                || m.getReturnType().isAnnotationPresent(Auto.class);
+        boolean singleton = !(m.isAnnotationPresent(Prototype.class)
+                || m.getReturnType().isAnnotationPresent(Prototype.class))
+                || (m.isAnnotationPresent(Auto.class) || m.getReturnType().isAnnotationPresent(Auto.class));
         final Provider<?>[] paramProviders = paramProviders(key, m.getParameterTypes(), m.getGenericParameterTypes(),
                 m.getParameterAnnotations(), Collections.singleton(key));
         providers.put(key, singletonProvider(key, singleton, () -> {
@@ -226,15 +237,39 @@ public class Injector implements Closeable {
         return provider;
     }
 
+    private Provider<List<?>> listProvider(final Key<?> key) {
+        return () -> providers.keySet().stream().filter(k -> key.type.isAssignableFrom(k.type)).map(providers::get)
+                .map(Provider::get).collect(Collectors.toList());
+    }
+
     private Provider<?>[] paramProviders(final Key<?> key, Class<?>[] parameterClasses, Type[] parameterTypes,
             Annotation[][] annotations, final Set<Key<?>> chain) {
         Provider<?>[] providers = new Provider<?>[parameterTypes.length];
         for (int i = 0; i < parameterTypes.length; ++i) {
             Class<?> parameterClass = parameterClasses[i];
             Annotation qualifier = qualifier(annotations[i]);
-            Class<?> providerType = Provider.class.equals(parameterClass)
-                    ? (Class<?>) ((ParameterizedType) parameterTypes[i]).getActualTypeArguments()[0] : null;
-            if (providerType == null) {
+            Optional<Class<?>> parametrizedType = Optional.empty();
+            if (Provider.class.equals(parameterClass) || List.class.equals(parameterClass)) {
+                Type type = ((ParameterizedType) parameterTypes[i]).getActualTypeArguments()[0];
+                if (!(type instanceof Class)) {
+                    throw new InjectionException("Unable to inject parameterized type \"" + type.toString() + "\"");
+                }
+                parametrizedType = ofNullable((Class<?>) type);
+            }
+
+            // we handle special cases of a Provider and unqualified List
+            if (parametrizedType.isPresent() && (Provider.class.equals(parameterClass)
+                    || (List.class.equals(parameterClass) && isNull(qualifier)))) {
+                final Key<?> newKey = Key.of(parametrizedType.get(), qualifier);
+                if (Provider.class.equals(parameterClass)) {
+                    providers[i] = () -> {
+                        return provider(newKey, null);
+                    };
+                }
+                if (List.class.equals(parameterClass)) {
+                    providers[i] = listProvider(newKey);
+                }
+            } else {
                 final Key<?> newKey = Key.of(parameterClass, qualifier);
                 final Set<Key<?>> newChain = append(chain, key);
                 if (newChain.contains(newKey)) {
@@ -243,12 +278,8 @@ public class Injector implements Closeable {
                 providers[i] = () -> {
                     return provider(newKey, newChain).get();
                 };
-            } else {
-                final Key<?> newKey = Key.of(providerType, qualifier);
-                providers[i] = () -> {
-                    return provider(newKey, null);
-                };
             }
+
         }
         return providers;
     }
