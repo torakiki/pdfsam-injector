@@ -83,6 +83,7 @@
 						<version>2.5.2</version>
 						<configuration>
 							<tagNameFormat>v@{project.version}</tagNameFormat>
+							<localCheckout>true</localCheckout>
 							<preparationGoals>clean install</preparationGoals>
 						</configuration>
 					</plugin>
