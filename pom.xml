@@ -12,7 +12,7 @@
 
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/torakiki/pdfsam-injector/</url>
+		<url>https://github.com/torakiki/sejda-injector/</url>
 	</issueManagement>
 
 	<organization>
@@ -34,9 +34,9 @@
 	</properties>
 
 	<scm>
-		<connection>scm:git:git@github.com:torakiki/pdfsam-injector.git</connection>
-		<developerConnection>scm:git:git@github.com:torakiki/pdfsam-injector.git</developerConnection>
-		<url>scm:git:git@github.com:torakiki/pdfsam-injector.git</url>
+		<connection>scm:git:git@github.com:torakiki/sejda-injector.git</connection>
+		<developerConnection>scm:git:git@github.com:torakiki/sejda-injector.git</developerConnection>
+		<url>scm:git:git@github.com:torakiki/sejda-injector.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
