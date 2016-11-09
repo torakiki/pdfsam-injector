@@ -1,8 +1,11 @@
-package org.pdfsam.injector;
+package org.sejda.injector;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.sejda.injector.InjectionException;
+import org.sejda.injector.Injector;
+import org.sejda.injector.Provides;
 
 public class InjectorTest {
     @Test(expected = InjectionException.class)

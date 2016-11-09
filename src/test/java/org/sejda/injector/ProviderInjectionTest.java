@@ -1,4 +1,4 @@
-package org.pdfsam.injector;
+package org.sejda.injector;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import org.junit.Test;
-import org.pdfsam.injector.Injector;
+import org.sejda.injector.Injector;
 
 public class ProviderInjectionTest {
     @Test

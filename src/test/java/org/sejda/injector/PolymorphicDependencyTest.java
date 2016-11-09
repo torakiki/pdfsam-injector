@@ -1,4 +1,4 @@
-package org.pdfsam.injector;
+package org.sejda.injector;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,9 +6,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.junit.Test;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Key;
-import org.pdfsam.injector.Provides;
+import org.sejda.injector.Injector;
+import org.sejda.injector.Key;
+import org.sejda.injector.Provides;
 
 public class PolymorphicDependencyTest {
     @Test

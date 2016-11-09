@@ -11,25 +11,14 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  */
-package org.pdfsam.injector;
+package org.sejda.injector;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public class InjectionException extends RuntimeException {
+    InjectionException(String message) {
+        super(message);
+    }
 
-import javax.inject.Singleton;
-
-/**
- * Configure the injector to automatically create the singleton instance
- * 
- * @author Andrea Vacondio
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.TYPE })
-@Singleton
-public @interface Auto {
-
+    InjectionException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

@@ -1,9 +1,9 @@
-package org.pdfsam.injector;
+package org.sejda.injector;
 
 import org.junit.Test;
-import org.pdfsam.injector.InjectionException;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Provides;
+import org.sejda.injector.InjectionException;
+import org.sejda.injector.Injector;
+import org.sejda.injector.Provides;
 
 public class AmbiguousModuleTest {
     @Test(expected = InjectionException.class)

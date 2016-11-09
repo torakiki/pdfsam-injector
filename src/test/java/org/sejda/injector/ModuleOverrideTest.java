@@ -1,10 +1,10 @@
-package org.pdfsam.injector;
+package org.sejda.injector;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Provides;
+import org.sejda.injector.Injector;
+import org.sejda.injector.Provides;
 
 public class ModuleOverrideTest {
     @Test

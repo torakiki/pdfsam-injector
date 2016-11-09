@@ -1,4 +1,4 @@
-package org.pdfsam.injector;
+package org.sejda.injector;
 
 import static org.mockito.Mockito.verify;
 
@@ -7,6 +7,10 @@ import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.sejda.injector.Auto;
+import org.sejda.injector.Components;
+import org.sejda.injector.Injector;
+import org.sejda.injector.Provides;
 
 public class AutoProviderTest {
     private static Consumer<String> HIT;

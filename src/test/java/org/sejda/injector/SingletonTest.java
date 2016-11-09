@@ -1,4 +1,4 @@
-package org.pdfsam.injector;
+package org.sejda.injector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 import javax.inject.Provider;
 
 import org.junit.Test;
+import org.sejda.injector.Injector;
+import org.sejda.injector.Prototype;
+import org.sejda.injector.Provides;
 
 public class SingletonTest {
     @Test

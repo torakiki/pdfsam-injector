@@ -11,26 +11,23 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  */
-package org.pdfsam.injector;
+package org.sejda.injector;
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+
+import javax.inject.Scope;
 
 /**
- * Condiguration instances can be annotated with classes to tell the injector it should scan those classes.
- * 
- * @author Andrea Vacondio
+ * Identifies a type that the injector instantiates every time the type is requested.
  *
+ * @see javax.inject.Scope @Scope
  */
+@Scope
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Components {
-    /**
-     * Classes to scan and add to the injector
-     */
-    Class<?>[] value() default {};
+@Retention(RUNTIME)
+public @interface Prototype {
+
 }
