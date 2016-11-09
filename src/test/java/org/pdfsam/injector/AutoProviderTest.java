@@ -1,30 +1,50 @@
 package org.pdfsam.injector;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 
+import java.util.function.Consumer;
+
+import org.junit.Before;
 import org.junit.Test;
-import org.pdfsam.injector.Auto;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Provides;
+import org.mockito.Mockito;
 
 public class AutoProviderTest {
+    private static Consumer<String> HIT;
 
-    @Test
-    public void singleton() {
-        Injector injector = Injector.start(new Config());
-        assertEquals(injector.instance(SingletonObj.class), injector.instance(SingletonObj.class));
+    @Before
+    public void setUp() {
+        HIT = Mockito.mock(Consumer.class);
     }
 
-    public static class Config {
+    @Test
+    public void autoCreatedAnnotatedClass() {
+        Injector injector = Injector.start(new Config());
+        verify(HIT).accept("hit");
+    }
+
+    @Test
+    public void autoCreatedAnnotatedConfig() {
+        Injector injector = Injector.start(new ConfigComponent());
+        verify(HIT).accept("hit");
+    }
+
+    public class Config {
 
         @Provides
-        public SingletonObj sing() {
-            return new SingletonObj();
+        public AnnotatedClass sing() {
+            return new AnnotatedClass();
         }
     }
 
-    @Auto
-    public static class SingletonObj {
+    @Components({ AnnotatedClass.class })
+    public class ConfigComponent {
 
+    }
+
+    @Auto
+    public static class AnnotatedClass {
+        AnnotatedClass() {
+            HIT.accept("hit");
+        }
     }
 }

@@ -17,6 +17,12 @@ public class ListInjectionTest {
         assertEquals(2, injector.instance(A.class).list.size());
     }
 
+    @Test
+    public void instancesOfType() {
+        Injector injector = Injector.start(new Config());
+        assertEquals(2, injector.instancesOfType(Base.class).size());
+    }
+
     @Test(expected = InjectionException.class)
     public void invalidType() {
         Injector injector = Injector.start(new Config());
