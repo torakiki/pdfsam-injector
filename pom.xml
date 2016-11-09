@@ -5,7 +5,7 @@
 	<artifactId>sejda-injector</artifactId>
 	<packaging>jar</packaging>
 	<name>sejda-injector</name>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 
 	<description>A simple dependency injection engine based on Feather</description>
 	<url>http://www.sejda.org</url>
@@ -37,7 +37,7 @@
 		<connection>scm:git:git@github.com:torakiki/sejda-injector.git</connection>
 		<developerConnection>scm:git:git@github.com:torakiki/sejda-injector.git</developerConnection>
 		<url>scm:git:git@github.com:torakiki/sejda-injector.git</url>
-		<tag>HEAD</tag>
+		<tag>v1.0.1</tag>
 	</scm>
 
 	<developers>
