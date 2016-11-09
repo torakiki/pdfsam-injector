@@ -27,6 +27,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -39,7 +40,6 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -237,9 +237,15 @@ public class Injector implements Closeable {
         return provider;
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private Provider<List<?>> listProvider(final Key<?> key) {
-        return () -> providers.keySet().stream().filter(k -> key.type.isAssignableFrom(k.type)).map(providers::get)
-                .map(Provider::get).collect(Collectors.toList());
+        return () -> {
+            List items = new ArrayList<>();
+            providers.keySet().stream().filter(k -> key.type.isAssignableFrom(k.type)).map(providers::get)
+                    .map(p -> p.get()).forEach(i -> items.add(i));
+            return items;
+        };
+
     }
 
     private Provider<?>[] paramProviders(final Key<?> key, Class<?>[] parameterClasses, Type[] parameterTypes,
