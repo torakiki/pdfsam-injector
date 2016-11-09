@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.pdfsam</groupId>
-	<artifactId>pdfsam-injector</artifactId>
+	<groupId>org.sejda</groupId>
+	<artifactId>sejda-injector</artifactId>
 	<packaging>jar</packaging>
-	<name>pdfsam-injector</name>
+	<name>sejda-injector</name>
 	<version>1.0.1-SNAPSHOT</version>
 
 	<description>A simple dependency injection engine based on Feather</description>
-	<url>http://www.pdfsam.org</url>
+	<url>http://www.sejda.org</url>
 
 	<issueManagement>
 		<system>GitHub</system>
@@ -16,8 +16,8 @@
 	</issueManagement>
 
 	<organization>
-		<name>pdfsam</name>
-		<url>http://www.pdfsam.org</url>
+		<name>sejda</name>
+		<url>http://www.sejda.org</url>
 	</organization>
 
 	<licenses>
