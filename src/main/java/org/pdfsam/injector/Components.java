@@ -1,4 +1,7 @@
 /*
+ * This file is part of the PDF Split And Merge source code
+ * Copyright 2020 by Sober Lemur S.a.s di Vacondio Andrea (info@pdfsam.org).
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
  * You may obtain a copy of the License at 
@@ -11,23 +14,26 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  */
-package org.sejda.injector;
-
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+package org.pdfsam.injector;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
-
-import javax.inject.Scope;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Identifies a type that the injector instantiates every time the type is requested.
+ * Condiguration instances can be annotated with classes to tell the injector it should scan those classes.
+ * 
+ * @author Andrea Vacondio
  *
- * @see javax.inject.Scope @Scope
  */
-@Scope
 @Documented
-@Retention(RUNTIME)
-public @interface Prototype {
-
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Components {
+    /**
+     * Classes to scan and add to the injector
+     */
+    Class<?>[] value() default {};
 }

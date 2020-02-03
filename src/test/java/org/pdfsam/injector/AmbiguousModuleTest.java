@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="false" context="filecomment_context" deleted="false" description="Comment for created Java files" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.filecomment" name="filecomment">/* 
+/*
  * This file is part of the PDF Split And Merge source code
- * Created on ${date}
  * Copyright 2020 by Sober Lemur S.a.s di Vacondio Andrea (info@pdfsam.org).
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
  * You may obtain a copy of the License at 
@@ -14,7 +13,29 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
- */</template></templates>
+ */
+package org.pdfsam.injector;
+
+import org.junit.Test;
+import org.pdfsam.injector.InjectionException;
+import org.pdfsam.injector.Injector;
+import org.pdfsam.injector.Provides;
+
+public class AmbiguousModuleTest {
+    @Test(expected = InjectionException.class)
+    public void ambiguousModule() {
+        Injector.start(new Module());
+    }
+
+    public static class Module {
+        @Provides
+        String foo() {
+            return "foo";
+        }
+
+        @Provides
+        String bar() {
+            return "bar";
+        }
+    }
+}

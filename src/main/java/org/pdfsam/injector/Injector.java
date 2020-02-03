@@ -1,4 +1,7 @@
 /*
+ * This file is part of the PDF Split And Merge source code
+ * Copyright 2020 by Sober Lemur S.a.s di Vacondio Andrea (info@pdfsam.org).
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
  * You may obtain a copy of the License at 
@@ -11,7 +14,7 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  */
-package org.sejda.injector;
+package org.pdfsam.injector;
 
 import static java.util.Collections.singleton;
 import static java.util.Objects.isNull;
@@ -303,9 +306,8 @@ public class Injector implements Closeable {
             Set<Key<?>> appended = new LinkedHashSet<>(set);
             appended.add(newKey);
             return appended;
-        } else {
-            return singleton(newKey);
         }
+        return singleton(newKey);
     }
 
     private static String chain(Set<Key<?>> chain, Key<?> lastKey) {
@@ -330,10 +332,10 @@ public class Injector implements Closeable {
         if (constructor != null) {
             constructor.setAccessible(true);
             return constructor;
-        } else {
-            throw new InjectionException(String.format(
-                    "%s doesn't have an @Inject or no-arg constructor, or a configured provider", key.type.getName()));
         }
+        throw new InjectionException(String.format(
+                "%s doesn't have an @Inject or no-arg constructor, or a configured provider", key.type.getName()));
+
     }
 
     private static Set<Method> providers(Class<?> type) {
