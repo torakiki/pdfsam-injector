@@ -19,9 +19,6 @@ package org.pdfsam.injector;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.pdfsam.injector.InjectionException;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Provides;
 
 public class InjectorTest {
     @Test(expected = InjectionException.class)

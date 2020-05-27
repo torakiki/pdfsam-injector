@@ -25,23 +25,22 @@ import javax.inject.Inject;
 import javax.inject.Qualifier;
 
 import org.junit.Test;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Key;
-import org.pdfsam.injector.Provides;
 
 public class QualifiedDependencyTest {
     @Test
     public void qualifiedInstances() {
-        Injector injector = Injector.start(new Module());
-        assertEquals(FooA.class, injector.instance(Key.of(Foo.class, A.class)).getClass());
-        assertEquals(FooB.class, injector.instance(Key.of(Foo.class, B.class)).getClass());
+        try (Injector injector = Injector.start(new Module())) {
+            assertEquals(FooA.class, injector.instance(Key.of(Foo.class, A.class)).getClass());
+            assertEquals(FooB.class, injector.instance(Key.of(Foo.class, B.class)).getClass());
+        }
     }
 
     @Test
     public void injectedQualified() {
-        Injector injector = Injector.start(new Module());
-        Dummy dummy = injector.instance(Dummy.class);
-        assertEquals(FooB.class, dummy.foo.getClass());
+        try (Injector injector = Injector.start(new Module())) {
+            Dummy dummy = injector.instance(Dummy.class);
+            assertEquals(FooB.class, dummy.foo.getClass());
+        }
     }
 
     interface Foo {

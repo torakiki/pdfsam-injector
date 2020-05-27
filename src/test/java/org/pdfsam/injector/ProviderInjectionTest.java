@@ -22,7 +22,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import org.junit.Test;
-import org.pdfsam.injector.Injector;
 
 public class ProviderInjectionTest {
     @Test

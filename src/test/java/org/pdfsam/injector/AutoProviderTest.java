@@ -23,10 +23,6 @@ import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.pdfsam.injector.Auto;
-import org.pdfsam.injector.Components;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Provides;
 
 public class AutoProviderTest {
     private static Consumer<String> HIT;
@@ -38,14 +34,16 @@ public class AutoProviderTest {
 
     @Test
     public void autoCreatedAnnotatedClass() {
-        Injector injector = Injector.start(new Config());
-        verify(HIT).accept("hit");
+        try (Injector injector = Injector.start(new Config())) {
+            verify(HIT).accept("hit");
+        }
     }
 
     @Test
     public void autoCreatedAnnotatedConfig() {
-        Injector injector = Injector.start(new ConfigComponent());
-        verify(HIT).accept("hit");
+        try (Injector injector = Injector.start(new ConfigComponent())) {
+            verify(HIT).accept("hit");
+        }
     }
 
     public class Config {

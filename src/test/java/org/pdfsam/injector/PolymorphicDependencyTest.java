@@ -22,9 +22,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.junit.Test;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Key;
-import org.pdfsam.injector.Provides;
 
 public class PolymorphicDependencyTest {
     @Test

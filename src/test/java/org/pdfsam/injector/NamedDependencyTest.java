@@ -22,24 +22,22 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.junit.Test;
-import org.pdfsam.injector.InjectionException;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Key;
-import org.pdfsam.injector.Provides;
 
 public class NamedDependencyTest {
     @Test
     public void namedInstanceWithModule() {
-        Injector injector = Injector.start(new HelloWorldModule());
-        assertEquals("Hello!", injector.instance(Key.of(String.class, "hello")));
-        assertEquals("Hi!", injector.instance(Key.of(String.class, "hi")));
-        assertEquals("Hello!", injector.instance(Bean.class).s);
+        try (Injector injector = Injector.start(new HelloWorldModule())) {
+            assertEquals("Hello!", injector.instance(Key.of(String.class, "hello")));
+            assertEquals("Hi!", injector.instance(Key.of(String.class, "hi")));
+            assertEquals("Hello!", injector.instance(Bean.class).s);
+        }
     }
 
     @Test(expected = InjectionException.class)
     public void failingName() {
-        Injector injector = Injector.start(new HelloWorldModule());
-        injector.instance(Key.of(String.class, "ChuckNorris"));
+        try (Injector injector = Injector.start(new HelloWorldModule())) {
+            injector.instance(Key.of(String.class, "ChuckNorris"));
+        }
     }
 
     public static class HelloWorldModule {

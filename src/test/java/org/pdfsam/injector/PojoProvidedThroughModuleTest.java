@@ -20,27 +20,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.pdfsam.injector.InjectionException;
-import org.pdfsam.injector.Injector;
-import org.pdfsam.injector.Provides;
 
 public class PojoProvidedThroughModuleTest {
     @Test(expected = InjectionException.class)
     public void pojoNotProvided() {
-        Injector injector = Injector.start();
-        injector.instance(Pojo.class);
+        try (Injector injector = Injector.start()) {
+            injector.instance(Pojo.class);
+        }
     }
 
     @Test
     public void pojoProvided() {
-        Injector injector = Injector.start(new Module());
-        assertNotNull(injector.instance(Pojo.class));
+        try (Injector injector = Injector.start(new Module())) {
+            assertNotNull(injector.instance(Pojo.class));
+        }
     }
 
     @Test
     public void dependecyInjected() {
-        Injector injector = Injector.start(new Module());
-        assertEquals("foo", injector.instance(String.class));
+        try (Injector injector = Injector.start(new Module())) {
+            assertEquals("foo", injector.instance(String.class));
+        }
     }
 
     public static class Module {

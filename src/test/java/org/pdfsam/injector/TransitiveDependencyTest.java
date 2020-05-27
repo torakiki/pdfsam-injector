@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import javax.inject.Inject;
 
 import org.junit.Test;
-import org.pdfsam.injector.Injector;
 
 public class TransitiveDependencyTest {
     @Test

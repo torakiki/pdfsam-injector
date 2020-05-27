@@ -22,21 +22,21 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import org.junit.Test;
-import org.pdfsam.injector.InjectionException;
-import org.pdfsam.injector.Injector;
 
 public class CircularDependencyTest {
     @Test(expected = InjectionException.class)
     public void circularDependencyCaught() {
-        Injector injector = Injector.start();
-        injector.instance(Circle1.class);
+        try (Injector injector = Injector.start()) {
+            injector.instance(Circle1.class);
+        }
     }
 
     @Test
     public void circularDependencyWithProviderAllowed() {
-        Injector injector = Injector.start();
-        CircleWithProvider1 circle1 = injector.instance(CircleWithProvider1.class);
-        assertNotNull(circle1.circleWithProvider2.circleWithProvider1.get());
+        try (Injector injector = Injector.start()) {
+            CircleWithProvider1 circle1 = injector.instance(CircleWithProvider1.class);
+            assertNotNull(circle1.circleWithProvider2.circleWithProvider1.get());
+        }
     }
 
     public static class Circle1 {
