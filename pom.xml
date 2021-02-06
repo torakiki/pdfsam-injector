@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.pdfsam</groupId>
 	<artifactId>pdfsam-injector</artifactId>
 	<packaging>jar</packaging>
 	<name>pdfsam-injector</name>
-	<version>2.0.1-SNAPSHOT</version>
+	<version>3.0.0</version>
 
 	<description>A simple dependency injection engine based on Feather</description>
 	<url>https://pdfsam.org</url>
@@ -33,13 +31,14 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 	</properties>
 
 	<scm>
 		<connection>scm:git:git@github.com:torakiki/pdfsam-injector.git</connection>
 		<developerConnection>scm:git:git@github.com:torakiki/pdfsam-injector.git</developerConnection>
 		<url>scm:git:git@github.com:torakiki/pdfsam-injector.git</url>
-		<tag>HEAD</tag>
+		<tag>v3.0.0</tag>
 	</scm>
 
 	<developers>
