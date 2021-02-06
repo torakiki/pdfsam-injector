@@ -19,9 +19,9 @@ package org.pdfsam.injector;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import javax.inject.Provider;
-
 import org.junit.Test;
+
+import jakarta.inject.Provider;
 
 public class SingletonTest {
     @Test

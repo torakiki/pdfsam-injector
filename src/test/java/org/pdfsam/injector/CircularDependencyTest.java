@@ -18,10 +18,10 @@ package org.pdfsam.injector;
 
 import static org.junit.Assert.assertNotNull;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-
 import org.junit.Test;
+
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 
 public class CircularDependencyTest {
     @Test(expected = InjectionException.class)

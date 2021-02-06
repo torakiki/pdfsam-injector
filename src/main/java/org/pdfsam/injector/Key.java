@@ -18,7 +18,7 @@ package org.pdfsam.injector;
 
 import java.lang.annotation.Annotation;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 public class Key<T> {
     final Class<T> type;

@@ -18,10 +18,10 @@ package org.pdfsam.injector;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.junit.Test;
+
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 public class NamedDependencyTest {
     @Test

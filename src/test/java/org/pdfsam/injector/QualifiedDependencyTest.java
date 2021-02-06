@@ -21,10 +21,10 @@ import static org.junit.Assert.assertEquals;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.inject.Inject;
-import javax.inject.Qualifier;
-
 import org.junit.Test;
+
+import jakarta.inject.Inject;
+import jakarta.inject.Qualifier;
 
 public class QualifiedDependencyTest {
     @Test

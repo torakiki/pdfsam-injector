@@ -18,9 +18,9 @@ package org.pdfsam.injector;
 
 import static org.junit.Assert.assertNotNull;
 
-import javax.inject.Provider;
-
 import org.junit.Test;
+
+import jakarta.inject.Provider;
 
 public class DependencyTest {
     @Test

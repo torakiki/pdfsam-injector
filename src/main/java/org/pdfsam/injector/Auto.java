@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 /**
  * Configure the injector to automatically create the singleton instance

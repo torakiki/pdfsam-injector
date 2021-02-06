@@ -21,7 +21,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 
-import javax.inject.Scope;
+import jakarta.inject.Scope;
 
 /**
  * Identifies a type that the injector instantiates every time the type is requested.
