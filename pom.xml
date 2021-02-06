@@ -5,7 +5,7 @@
 	<artifactId>pdfsam-injector</artifactId>
 	<packaging>jar</packaging>
 	<name>pdfsam-injector</name>
-	<version>3.0.0</version>
+	<version>3.0.1-SNAPSHOT</version>
 
 	<description>A simple dependency injection engine based on Feather</description>
 	<url>https://pdfsam.org</url>
