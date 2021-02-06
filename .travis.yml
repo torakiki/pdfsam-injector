@@ -2,4 +2,4 @@ language: java
 sudo: false
 dist: xenial
 jdk:
-  - openjdk8
+  - openjdk11
