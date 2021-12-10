@@ -16,12 +16,12 @@
  */
 package org.pdfsam.injector;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PolymorphicDependencyTest {
     @Test

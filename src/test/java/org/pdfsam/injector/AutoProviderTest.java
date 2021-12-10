@@ -16,18 +16,19 @@
  */
 package org.pdfsam.injector;
 
-import static org.mockito.Mockito.verify;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.function.Consumer;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
+import static org.mockito.Mockito.verify;
 
 public class AutoProviderTest {
     private static Consumer<String> HIT;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         HIT = Mockito.mock(Consumer.class);
     }

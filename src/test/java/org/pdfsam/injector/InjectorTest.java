@@ -16,24 +16,30 @@
  */
 package org.pdfsam.injector;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class InjectorTest {
-    @Test(expected = InjectionException.class)
+    @Test
     public void classAsConfig() {
-        Injector.addConfig(String.class);
-        Injector.start();
+        assertThrows(InjectionException.class, () -> {
+            Injector.addConfig(String.class);
+            Injector.start();
+        });
     }
 
-    @Test(expected = InjectionException.class)
+    @Test
     public void closed() {
-        Injector.addConfig(new Config());
-        Injector injector = Injector.start();
-        assertEquals("ChuckNorris", injector.instance(Obj.class).val);
-        injector.close();
-        injector.instance(Obj.class);
+        assertThrows(InjectionException.class, () -> {
+            Injector.addConfig(new Config());
+            Injector injector = Injector.start();
+            assertEquals("ChuckNorris", injector.instance(Obj.class).val);
+            injector.close();
+            injector.instance(Obj.class);
+        });
     }
 
     public class Config {

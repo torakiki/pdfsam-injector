@@ -16,12 +16,12 @@
  */
 package org.pdfsam.injector;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
-import org.junit.Test;
 
 import jakarta.inject.Provider;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class SingletonTest {
     @Test

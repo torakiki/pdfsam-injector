@@ -16,19 +16,22 @@
  */
 package org.pdfsam.injector;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CircularDependencyTest {
-    @Test(expected = InjectionException.class)
+    @Test
     public void circularDependencyCaught() {
-        try (Injector injector = Injector.start()) {
-            injector.instance(Circle1.class);
-        }
+        assertThrows(InjectionException.class, () -> {
+            try (Injector injector = Injector.start()) {
+                injector.instance(Circle1.class);
+            }
+        });
+
     }
 
     @Test

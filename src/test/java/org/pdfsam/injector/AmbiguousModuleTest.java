@@ -16,12 +16,15 @@
  */
 package org.pdfsam.injector;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AmbiguousModuleTest {
-    @Test(expected = InjectionException.class)
+    @Test
     public void ambiguousModule() {
-        Injector.start(new Module());
+        assertThrows(InjectionException.class, () -> {
+            Injector.start(new Module());
+        });
     }
 
     public static class Module {
