@@ -26,7 +26,7 @@ import jakarta.inject.Scope;
 /**
  * Identifies a type that the injector instantiates every time the type is requested.
  *
- * @see javax.inject.Scope @Scope
+ * @see jakarta.inject.Scope @Scope
  */
 @Scope
 @Documented
