@@ -16,13 +16,11 @@
  */
 package org.pdfsam.injector;
 
-import static java.util.Collections.singleton;
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Stream.concat;
-import static java.util.stream.Stream.of;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Qualifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.lang.annotation.Annotation;
@@ -37,19 +35,19 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import jakarta.inject.Inject;
-import jakarta.inject.Provider;
-import jakarta.inject.Qualifier;
+import static java.util.Collections.singleton;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Stream.concat;
+import static java.util.stream.Stream.of;
 
 public class Injector implements Closeable {
 
@@ -63,7 +61,7 @@ public class Injector implements Closeable {
     private final Set<Key<?>> autos = new HashSet<>();
 
     public static void addConfig(Object... configurations) {
-        Arrays.stream(configurations).forEach(CONFIGURATIONS::add);
+        CONFIGURATIONS.addAll(Arrays.asList(configurations));
     }
 
     public static void addConfig(Iterable<Object> configurations) {
@@ -74,8 +72,6 @@ public class Injector implements Closeable {
 
     /**
      * Adds the given components classes to the injectable ones
-     * 
-     * @param components
      */
     public static void add(Class<?>... components) {
         Arrays.stream(components).forEach(c -> COMPONENTS.put(c, c));
@@ -123,8 +119,8 @@ public class Injector implements Closeable {
                 for (Method providerMethod : providers(config.getClass())) {
                     providerMethod(config, providerMethod);
                 }
-                ofNullable(config.getClass().getAnnotation(Components.class)).map(c -> c.value())
-                        .filter(Objects::nonNull).ifPresent(Injector::add);
+                ofNullable(config.getClass().getAnnotation(Components.class)).map(Components::value)
+                        .ifPresent(Injector::add);
             }
             LOG.debug("Parsing {} components", COMPONENTS.size());
             COMPONENTS.keySet().forEach(this::provider);
@@ -133,7 +129,7 @@ public class Injector implements Closeable {
             CONFIGURATIONS.clear();
             COMPONENTS.clear();
         }
-        LOG.debug("Autocreating {} singletons", autos.size());
+        LOG.debug("Auto-creating {} singletons", autos.size());
         autos.forEach(k -> providers.get(k).get());
         autos.clear();
     }
@@ -188,11 +184,11 @@ public class Injector implements Closeable {
                         try {
                             return constructor.newInstance(params(paramProviders));
                         } catch (Exception e) {
-                            throw new InjectionException(String.format("Can't instantiate %s", key.toString()), e);
+                            throw new InjectionException(String.format("Can't instantiate %s", key), e);
                         }
                     }));
             if (key.type.isAnnotationPresent(Auto.class)) {
-                LOG.trace("To be autocreated {}", key);
+                LOG.trace("To be auto-created {}", key);
                 autos.add(key);
             }
         }
@@ -203,7 +199,7 @@ public class Injector implements Closeable {
         final Key<?> key = Key.of(m.getReturnType(), qualifier(m.getAnnotations()));
         if (providers.containsKey(key)) {
             throw new InjectionException(
-                    String.format("%s has multiple providers, configuration %s", key.toString(), module.getClass()));
+                    String.format("%s has multiple providers, configuration %s", key, module.getClass()));
         }
         boolean singleton = !(m.isAnnotationPresent(Prototype.class)
                 || m.getReturnType().isAnnotationPresent(Prototype.class))
@@ -214,11 +210,11 @@ public class Injector implements Closeable {
             try {
                 return m.invoke(module, params(paramProviders));
             } catch (Exception e) {
-                throw new InjectionException(String.format("Can't instantiate %s with provider", key.toString()), e);
+                throw new InjectionException(String.format("Can't instantiate %s with provider", key), e);
             }
         }));
         if (m.isAnnotationPresent(Auto.class) || m.getReturnType().isAnnotationPresent(Auto.class)) {
-            LOG.trace("To be autocreated {}", key);
+            LOG.trace("To be auto-created {}", key);
             autos.add(key);
         }
     }
@@ -245,7 +241,7 @@ public class Injector implements Closeable {
         return () -> {
             List items = new ArrayList<>();
             providers.keySet().stream().filter(k -> key.type.isAssignableFrom(k.type)).map(providers::get)
-                    .map(p -> p.get()).forEach(i -> items.add(i));
+                    .map(Provider::get).forEach(items::add);
             return items;
         };
 
@@ -271,9 +267,7 @@ public class Injector implements Closeable {
                     || (List.class.equals(parameterClass) && isNull(qualifier)))) {
                 final Key<?> newKey = Key.of(parametrizedType.get(), qualifier);
                 if (Provider.class.equals(parameterClass)) {
-                    providers[i] = () -> {
-                        return provider(newKey, null);
-                    };
+                    providers[i] = () -> provider(newKey, null);
                 }
                 if (List.class.equals(parameterClass)) {
                     providers[i] = listProvider(newKey);
@@ -284,9 +278,7 @@ public class Injector implements Closeable {
                 if (newChain.contains(newKey)) {
                     throw new InjectionException(String.format("Circular dependency: %s", chain(newChain, newKey)));
                 }
-                providers[i] = () -> {
-                    return provider(newKey, newChain).get();
-                };
+                providers[i] = () -> provider(newKey, newChain).get();
             }
 
         }

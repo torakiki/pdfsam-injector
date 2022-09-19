@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Condiguration instances can be annotated with classes to tell the injector it should scan those classes.
+ * Configuration instances can be annotated with classes to tell the injector it should scan those classes.
  * 
  * @author Andrea Vacondio
  *

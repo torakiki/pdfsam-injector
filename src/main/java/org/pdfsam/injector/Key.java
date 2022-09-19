@@ -17,6 +17,7 @@
 package org.pdfsam.injector;
 
 import java.lang.annotation.Annotation;
+import java.util.Objects;
 
 import jakarta.inject.Named;
 
@@ -72,9 +73,9 @@ public class Key<T> {
 
         if (!type.equals(key.type))
             return false;
-        if (qualifier != null ? !qualifier.equals(key.qualifier) : key.qualifier != null)
+        if (!Objects.equals(qualifier, key.qualifier))
             return false;
-        return !(name != null ? !name.equals(key.name) : key.name != null);
+        return Objects.equals(name, key.name);
 
     }
 
