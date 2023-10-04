@@ -5,7 +5,7 @@
 	<artifactId>pdfsam-injector</artifactId>
 	<packaging>jar</packaging>
 	<name>pdfsam-injector</name>
-	<version>4.0.1-SNAPSHOT</version>
+	<version>5.0.0</version>
 
 	<description>A simple dependency injection engine based on Feather</description>
 	<url>https://pdfsam.org</url>
@@ -38,7 +38,7 @@
 		<connection>scm:git:git@github.com:torakiki/pdfsam-injector.git</connection>
 		<developerConnection>scm:git:git@github.com:torakiki/pdfsam-injector.git</developerConnection>
 		<url>scm:git:git@github.com:torakiki/pdfsam-injector.git</url>
-		<tag>v4.0.0</tag>
+		<tag>v5.0.0</tag>
 	</scm>
 
 	<developers>
