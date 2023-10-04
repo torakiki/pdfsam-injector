@@ -16,7 +16,7 @@
 	</issueManagement>
 
 	<organization>
-		<name>Sober Lemur S.a.s. di Vacondio Andrea</name>
+		<name>Sober Lemur S.r.l.</name>
 		<url>https://pdfsam.org</url>
 	</organization>
 
@@ -45,7 +45,7 @@
 		<developer>
 			<id>torakiki</id>
 			<name>Andrea Vacondio</name>
-			<email>andrea.vacondio@gmail.com</email>
+			<email>andrea@soberlemur.com</email>
 		</developer>
 	</developers>
 
@@ -68,7 +68,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.4.0</version>
+						<version>3.6.0</version>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>
@@ -81,7 +81,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-release-plugin</artifactId>
-						<version>3.0.0-M6</version>
+						<version>3.0.1</version>
 						<configuration>
 							<tagNameFormat>v@{project.version}</tagNameFormat>
 							<localCheckout>true</localCheckout>
@@ -91,7 +91,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>3.0.1</version>
+						<version>3.1.0</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -123,9 +123,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.10.1</version>
+				<version>3.11.0</version>
 				<configuration>
-					<release>17</release>
+					<release>21</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -135,7 +135,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Built-By>Sober Lemur S.a.s.</Built-By>
+							<Built-By>Sober Lemur S.r.l.</Built-By>
 							<Automatic-Module-Name>org.pdfsam.injector</Automatic-Module-Name>
 						</manifestEntries>
 					</archive>
@@ -144,7 +144,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.2.1</version>
+				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -157,7 +157,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M7</version>
+				<version>3.1.2</version>
 			</plugin>
 		</plugins>
 	</build>
@@ -165,24 +165,24 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>2.0.0</version>
+			<version>2.0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.4.0</version>
+			<version>1.4.11</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>4.8.0</version>
+			<version>5.5.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.0</version>
+			<version>5.10.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
