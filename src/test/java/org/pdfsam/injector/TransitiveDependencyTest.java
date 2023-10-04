@@ -1,6 +1,6 @@
 /*
  * This file is part of the PDF Split And Merge source code
- * Copyright 2020 by Sober Lemur S.a.s di Vacondio Andrea (info@pdfsam.org).
+ * Copyright 2020 by Sober Lemur S.r.l. (info@pdfsam.org).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
